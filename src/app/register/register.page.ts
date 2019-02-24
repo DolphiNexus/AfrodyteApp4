@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth} from 'angularfire2/auth';
 import { User } from './../models/user';
 import { LoginPage } from '../login/login.page'
+import { ToastController } from '@ionic/angular';
 
 import { Router } from '@angular/router';
 
@@ -15,10 +16,11 @@ export class RegisterPage implements OnInit {
 
   user = {} as User;
 
-  constructor(private router: Router, private navCtrl: NavController, private fireAuth: AngularFireAuth) { }
+  constructor(public toastController: ToastController, private router: Router, private navCtrl: NavController, private fireAuth: AngularFireAuth) { }
 
   ngOnInit() {
   }
+
 
   async register(user: User) {
     try {
@@ -29,7 +31,14 @@ export class RegisterPage implements OnInit {
       }
     }
     catch(e) {
-      console.error(e);
+        const toast = await this.toastController.create({
+          message: 'All fields are required! Password MUST be at least 6 characters long!',
+          showCloseButton: true,
+          position: 'bottom',
+          closeButtonText: 'Done',
+          cssClass: "error",
+        });
+        toast.present();
     }
   }
 

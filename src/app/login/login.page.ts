@@ -5,6 +5,7 @@ import { AngularFireAuth} from 'angularfire2/auth';
 import { User } from './../models/user';
 import { Component, OnInit } from '@angular/core';
 import { RegisterPage } from '../register/register.page'
+import { ToastController } from '@ionic/angular';
 
 import { Router } from '@angular/router';
 
@@ -17,7 +18,7 @@ export class LoginPage implements OnInit {
 
   user = {} as User; 
 
-  constructor( private router: Router, private navCtrl: NavController, private fireAuth: AngularFireAuth ) { }
+  constructor( public toastController: ToastController, private router: Router, private navCtrl: NavController, private fireAuth: AngularFireAuth ) { }
 
   ngOnInit() {
   }
@@ -31,7 +32,14 @@ export class LoginPage implements OnInit {
         }
       }
       catch(e) {
-        console.error(e);
+        const toast = await this.toastController.create({
+          message: 'Invalid Email or Password!',
+          showCloseButton: true,
+          position: 'bottom',
+          closeButtonText: 'Done',
+          cssClass: "error",
+        });
+        toast.present();
       }
     }
 
