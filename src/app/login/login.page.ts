@@ -36,6 +36,7 @@ export class LoginPage implements OnInit {
           message: 'Invalid Email or Password!',
           showCloseButton: true,
           position: 'bottom',
+          duration: 5000,
           closeButtonText: 'Done',
           cssClass: "error",
         });

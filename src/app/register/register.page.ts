@@ -35,6 +35,7 @@ export class RegisterPage implements OnInit {
           message: 'All fields are required! Password MUST be at least 6 characters long!',
           showCloseButton: true,
           position: 'bottom',
+          duration: 5000,
           closeButtonText: 'Done',
           cssClass: "error",
         });
